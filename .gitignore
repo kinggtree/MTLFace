@@ -1,0 +1,9 @@
+.idea
+# 添加__pycache__
+__pycache__
+# 添加dataset下文件夹arcface-test-set, casia-webface
+dataset/arcface-test-set
+dataset/casia-webface
+# 添加scaf.txt
+dataset/scaf.txt
+mtlface_checkpoints.tar
