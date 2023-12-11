@@ -109,3 +109,11 @@ class MTLFace(object):
                     self.fr.validate(n_iter)
                 if opt.train_fas:
                     self.fas.validate(n_iter)
+
+        # 在训练循环结束后保存模型并关闭TensorBoard writer
+        if opt.train_fr:
+            self.fr.save_model("final_fr_model.pth")
+            self.fr.writer.close()
+
+
+

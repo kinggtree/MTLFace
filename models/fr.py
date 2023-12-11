@@ -93,6 +93,17 @@ class FR(BasicTask):
         x_age, x_group = self.da_discriminator(self.grl(x_id))
         loss = self.compute_age_loss(x_age, x_group, ages)
         return loss
+    
+    def save_model(self, filename="final_model.pth"):
+        torch.save({
+            'backbone_state_dict': self.backbone.state_dict(),
+            'head_state_dict': self.head.state_dict(),
+            'estimation_network_state_dict': self.estimation_network.state_dict(),
+            'da_discriminator_state_dict': self.da_discriminator.state_dict(),
+            'optimizer_state_dict': self.optimizer.state_dict(),
+            'scaler_state_dict': self.scaler.state_dict()
+        }, filename)
+        print(f"Model saved to {filename}")
 
     def train(self, inputs, n_iter):
         opt = self.opt
@@ -137,3 +148,13 @@ class FR(BasicTask):
         id_loss, da_loss, age_loss = reduce_loss(id_loss, da_loss, age_loss)
         lr = self.optimizer.param_groups[0]['lr']
         self.logger.msg([id_loss, da_loss, age_loss, lr], n_iter)
+
+        # 记录参数
+        self.writer.add_scalar('Loss/id_loss', id_loss, n_iter)
+        self.writer.add_scalar('Loss/da_loss', da_loss, n_iter)
+        self.writer.add_scalar('Loss/age_loss', age_loss, n_iter)
+        self.writer.add_scalar('Learning Rate', lr, n_iter)
+
+        # 如果想要使用下面的代码保存backbone.parameters()，首先就需要让densenet生成parameter
+        # self.writer.add_histogram('Weights/Backbone', self.backbone.parameters(), n_iter)
+
