@@ -7,5 +7,3 @@ dataset/casia-webface
 # 添加scaf.txt
 dataset/scaf.txt
 mtlface_checkpoints.tar
-
-tensorboard_data
