@@ -1,4 +1,4 @@
-# 数字音视频分析大作业-修改MTLFace方法，实现DenseNet121在AIFR上的应用
+# 修改MTLFace方法，实现DenseNet121在AIFR上的应用
 
 通过修改AIFR中的backbone，将backbone从ResNet50修改为DenseNet121，实现了DenseNet121在AIFR上的训练。
 
